@@ -21,11 +21,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
 # Source list
 add_library(sorting
-    sorting/sort.h
     sorting/sorting.h
     sorting/sorting.cpp
-    sorting/select.cpp
-    sorting/select.h
 )
 
 add_executable(baby main.cpp)
