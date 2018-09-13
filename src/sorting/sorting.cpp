@@ -1,8 +1,9 @@
 #include "sorting.h"
+#include <algorithm>
 
 namespace sorting {
 
-static const Sorting* const SORTERS_OBJECT[SORTERS_TOTAL] = { new Select(), new Insert() };
+static const Sorting* const SORTERS_OBJECT[SORTERS_TOTAL] = { new Select(), new Insert(), new Shell() };
 
 template<typename T>
 void swap(T array[], int i, int j) {
@@ -46,10 +47,29 @@ void Select::sort(int target[], const int size) const {
 const char* Insert::name() const { return "Insert"; };
 void Insert::sort(int a[], const int size) const {
 
-    for (int i = 1; i < size; i++) {
+    for (int i = 0; i < size; i++) {
         for (int j = i; j > 0 && a[j] < a[j - 1]; j--) {
             swap(a, j, j - 1);
         }
+    }
+}
+
+// Shell sorting
+const char* Shell::name() const { return "Shell"; };
+void Shell::sort(int a[], const int size) const {
+
+    int h = 1;
+    while (h < size / 3) {
+        h = 3 * h + 1; // 1, 4, 13, 40, 121, 364, 1093
+    }
+    while (h > 1) {
+        for (int i = h; i < size; i++) {
+            // insert a[i] to a[i - h], a[i - 2 * h], a[i - 3 * h]...
+            for (int j = i; j >= h && a[j] < a[j - h]; j -= h) {
+                swap(a, j, j - h);
+            }
+        }
+        h = h / 3;
     }
 }
 

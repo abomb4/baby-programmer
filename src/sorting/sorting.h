@@ -12,7 +12,7 @@ public:
 };
 
 // Currently this value must manage manually.
-static const int SORTERS_TOTAL = 2;
+static const int SORTERS_TOTAL = 3;
 
 // This function can use like:
 // for (int i = 0; i < SORTER_TOTAL; i++) { const Sorting* sort = chooseSorter(i); }
@@ -31,6 +31,12 @@ public:
 };
 
 class Insert : public virtual Sorting {
+public:
+    virtual const char* name() const;
+    virtual void sort(int target[], const int size) const;
+};
+
+class Shell : public virtual Sorting {
 public:
     virtual const char* name() const;
     virtual void sort(int target[], const int size) const;
